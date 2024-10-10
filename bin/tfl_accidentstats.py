@@ -44,6 +44,27 @@ class MyScript(Script):
         requestURL = "https://api.tfl.gov.uk/AccidentStats/{year}"
         parameters = {"Ocp-Apim-Subscription-Key":Ocp_Apim_Subscription_Key,"year":year}
         return self.tfl_api_call(requestURL,parameters)
+    
+    def checkpoint(self,checkpoint_file,acc_id):
+        with open(checkpoint_file,'r') as file:
+            id_list = file.read().splitlines()
+            return(acc_id in id_list)
+        
+    def write_to_checkpoint_file(self,checkpoint_file,acc_id):
+        with open(checkpoint_file,'a') as file:
+            file.writelines(acc_id+"\n")
+
+
+    def stream_to_splunk(self,checkpoint_file,result):
+        events_to_return = []
+        for dt in result:
+            if self.checkpoint(checkpoint_file,str(dt["id"])):
+                continue
+            else:
+                self.write_to_checkpoint_file(checkpoint_file,str(dt["id"]))
+                events_to_return.append(dt)
+
+        return json.dumps(events_to_return)
 
     def validate_input(self, validation_definition):
         # Validates input.
@@ -59,9 +80,14 @@ class MyScript(Script):
             year = input_item["year"]
             
             result = self.get_accidentstats(Ocp_Apim_Subscription_Key,year)
+            checkpoint_file=os.path.join(os.environ["SPLUNK_HOME"],'etc','apps','tfl_accidentstats_modular_input','bin','checkpoint','checkpoint.txt')
+            processed_results_json=self.stream_to_splunk(checkpoint_file,result)
+            processed_results = json.loads(processed_results_json)
             #print(result)
+            #with open(os.path.join(os.environ["SPLUNK_HOME"], 'etc', 'apps', 'tfl_accidentstats_modular_input', 'bin', 'debug_processed_results.txt'), 'w') as debug_file:
+            #   debug_file.write(processed_results)
 
-            for r in result:
+            for r in processed_results:
                 event=Event()
                 event.stanza = input_name
                 event.data = json.dumps(r)
