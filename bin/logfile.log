@@ -1,0 +1,21 @@
+2024-10-10 13:27:37,002 INFO Initialized MyScript
+2024-10-10 13:27:37,002 INFO Starting stream_events
+2024-10-10 13:27:37,002 INFO Processing input tfl_accidentstats://tfl_accidentstats_2007
+2024-10-10 13:27:37,003 INFO Entering get_accidentstats with year 2007
+2024-10-10 13:27:37,003 INFO Making API call to https://api.tfl.gov.uk/AccidentStats/{year} with parameters {'Ocp-Apim-Subscription-Key': '####', 'year': '2007'}
+2024-10-10 13:27:37,008 INFO Starting new HTTPS connection (1): api.tfl.gov.uk:443
+2024-10-10 13:27:42,162 INFO https://api.tfl.gov.uk:443 "GET /AccidentStats/%7Byear%7D?Ocp-Apim-Subscription-Key=####&year=2007 HTTP/1.1" 200 None
+2024-10-10 13:27:46,198 INFO Received response with status code 200
+2024-10-10 13:27:47,108 INFO API call successful, parsed JSON data
+2024-10-10 13:27:47,113 INFO Exiting get_accidentstats with data length 46420
+2024-10-10 13:27:47,113 INFO Retrieved 46420 records from API
+2024-10-10 13:27:47,114 INFO Entering stream_to_splunk
+2024-10-10 13:27:47,114 INFO Checking checkpoint for acc_id 51618
+2024-10-10 13:27:47,122 INFO acc_id 51618 exists: True
+2024-10-10 13:27:47,124 INFO acc_id 51618 already processed, skipping
+2024-10-10 13:27:47,124 INFO Checking checkpoint for acc_id 51619
+2024-10-10 13:27:47,134 INFO acc_id 51619 exists: True
+2024-10-10 13:27:47,137 INFO acc_id 51619 already processed, skipping
+2024-10-10 13:27:47,137 INFO Checking checkpoint for acc_id 51620
+2024-10-10 13:27:47,146 INFO acc_id 51620 exists: True
+2024-10-10 13:27:47,148 INFO acc_id 51620 already processed, skipping
