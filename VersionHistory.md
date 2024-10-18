@@ -13,3 +13,5 @@ Version 1.0.0: October_11_2024
 7. Implemented logging to track script execution.
 8. Added exception handling to capture and log unexpected error.
 9. Created a new file called "logfile.log" in tfl_accidentstats_modular_input/bin to store the log entires.
+
+No changes in Latest Code till Oct_18_2024
