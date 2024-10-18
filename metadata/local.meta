@@ -5,3 +5,8 @@ modtime = 1728372003.872382600
 [app/launcher]
 version = 9.3.1
 modtime = 1728372003.896938700
+
+[inputs/tfl_accidentstats%3A%2F%2Ftfl_accident_stats]
+owner = admin
+version = 9.3.1
+modtime = 1728539194.834749600
